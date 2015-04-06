@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MedCardWeb.MedCard>
+
+@{
+    ViewBag.Title = "ListMk";
+    Layout = "~/Areas/_Private/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ListMk</h2>
+<br />
+@if(Request.QueryString["medTitle"] != null){ @:Текущая карта теперь:
+@Request.QueryString["medTitle"] }
+<br /><br />
+<table  cellpadding="0" cellspacing="10" border="0" width="500px" style="text-align:left">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Чья карта</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cardMed in Model.Take(30))
+        {
+            <tr>
+            <td>
+            @cardMed.Id 
+            </td>   
+            <td>
+            <a href="@Url.Action("ChangeMk", "Admin", new { Area = "_Private", id = cardMed.Id, t = cardMed.title, d = cardMed.discription }, null)">@cardMed.title</a>
+            </td>
+            <td>
+            @cardMed.discription
+            </td>
+            <td>
+            @cardMed.UsersId
+            </td>
+            </tr>
+        } 
+    </tbody>
+</table>

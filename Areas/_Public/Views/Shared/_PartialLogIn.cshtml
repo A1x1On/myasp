@@ -1,0 +1,25 @@
+﻿@model MedCardWeb.User
+
+
+
+<a href="@Url.Action("LogIn", "Home", new { Area = "_Public" }, null)">Войти</a>
+&nbsp; &nbsp; 
+<a href="@Url.Action("Registration", "Home", new { Area = "_Public" }, null)">Регистрация</a><br />
+
+@using (Html.BeginForm("LogIn", "Home", FormMethod.Post, new { Area = "_Public", id = "my-form" }))
+{     
+    @Html.ValidationSummary(true);
+    @Html.AntiForgeryToken();
+  
+    @:Логин @Html.EditorFor(x => x.login)
+    @Html.ValidationMessageFor(x => x.login);
+    <br /><br />
+ 
+    @:Пароль @Html.EditorFor(x => x.pass)
+    @Html.ValidationMessageFor(x => x.pass);
+    <br /><br />
+    
+    <input type="submit" value="submit" id="my-form" />
+    <input type="button" value="LogOut" id="btnLogOut" />
+}
+

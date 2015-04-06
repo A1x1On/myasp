@@ -1,0 +1,19 @@
+﻿@model MedCardWeb.MedCard
+@{
+    ViewBag.Title = "AddMk";
+    Layout = "~/Areas/_Private/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddMk</h2>
+
+@using (Html.BeginForm("AddMk", "Admin", FormMethod.Post, new { Area = "_Private" }))
+{
+
+    @:Название карты: @Html.EditorFor(x => x.title)
+    @Html.ValidationMessageFor(x => x.title)
+    <br /><br />
+    @:Описание @Html.EditorFor(x => x.discription)
+    @Html.ValidationMessageFor(x => x.title)
+
+    <input type="submit" value="submit" />
+}

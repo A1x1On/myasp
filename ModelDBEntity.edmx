@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBMedCardModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="DBMedCardModelStoreContainer">
+          <EntitySet Name="MedCards" EntityType="DBMedCardModel.Store.MedCards" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="DBMedCardModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_dbo_MedCards_dbo_Users_UsersId" Association="DBMedCardModel.Store.FK_dbo_MedCards_dbo_Users_UsersId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MedCards" EntitySet="MedCards" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="MedCards">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UsersId" Type="int" />
+          <Property Name="title" Type="nvarchar(max)" />
+          <Property Name="discription" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="firsеName" Type="nvarchar" MaxLength="15" />
+          <Property Name="lastName" Type="nvarchar(max)" />
+          <Property Name="dateBirth" Type="datetime" />
+          <Property Name="status" Type="nvarchar(max)" />
+          <Property Name="login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="email" Type="nvarchar(max)" />
+          <Property Name="pass" Type="nvarchar(max)" />
+          <Property Name="ConfirMail" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_MedCards_dbo_Users_UsersId">
+          <End Role="Users" Type="DBMedCardModel.Store.Users" Multiplicity="0..1" />
+          <End Role="MedCards" Type="DBMedCardModel.Store.MedCards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MedCards">
+              <PropertyRef Name="UsersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBMedCardModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBMedCardEntities4" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="MedCards" EntityType="DBMedCardModel.MedCard" />
+          <EntitySet Name="Users" EntityType="DBMedCardModel.User" />
+          <AssociationSet Name="FK_dbo_MedCards_dbo_Users_UsersId" Association="DBMedCardModel.FK_dbo_MedCards_dbo_Users_UsersId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MedCards" EntitySet="MedCards" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="MedCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UsersId" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="discription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="User" Relationship="DBMedCardModel.FK_dbo_MedCards_dbo_Users_UsersId" FromRole="MedCards" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="firsеName" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
+          <Property Name="lastName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="dateBirth" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="login" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="pass" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ConfirMail" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="MedCards" Relationship="DBMedCardModel.FK_dbo_MedCards_dbo_Users_UsersId" FromRole="Users" ToRole="MedCards" />
+        </EntityType>
+        <Association Name="FK_dbo_MedCards_dbo_Users_UsersId">
+          <End Role="Users" Type="DBMedCardModel.User" Multiplicity="0..1" />
+          <End Role="MedCards" Type="DBMedCardModel.MedCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MedCards">
+              <PropertyRef Name="UsersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBMedCardModelStoreContainer" CdmEntityContainer="DBMedCardEntities4">
+          <EntitySetMapping Name="MedCards">
+            <EntityTypeMapping TypeName="DBMedCardModel.MedCard">
+              <MappingFragment StoreEntitySet="MedCards">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UsersId" ColumnName="UsersId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="discription" ColumnName="discription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DBMedCardModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="firsеName" ColumnName="firsеName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="dateBirth" ColumnName="dateBirth" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="ConfirMail" ColumnName="ConfirMail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

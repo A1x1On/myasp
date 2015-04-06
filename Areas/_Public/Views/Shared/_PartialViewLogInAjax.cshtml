@@ -1,0 +1,22 @@
+﻿Я Ajax <br />
+@if (Session["LogedUserID"] != null)
+{
+   @: Привет @Session["LogedUserName"].ToString()     
+   <script type="text/javascript">
+    $(document).ready(function () {
+        $(".panel-admin").slideDown();
+        $(".panel-admin").html('Панель администрирования: Привет @Session["LogedUserName"]').insertAfter;
+        });      
+</script>                 
+}
+else
+{
+    @: Досвидание товарищ!
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".panel-admin").slideUp();
+        });
+</script>
+
+}
+

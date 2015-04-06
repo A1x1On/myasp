@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Регистрация";
+    Layout = "~/Areas/_Public/Views/Shared/_Layout.cshtml";
+}
+@model MedCardWeb.User
+
+<h2>Регистрация</h2>
+
+
+
+<div class="">
+    --------------------------------
+@*@Html.Action("OModel", "Home", new { Area = "_Public" });*@
+    ---------------------------------
+</div>
+
+
+
+
+
+
+@Html.EditorFor(x => x.login, new { htmlAttributes = new { @ng_model = "an_login"} });
+
+@ViewBag.m1
+@ViewBag.Message3
+@using (Html.BeginForm("Registration", "Home", FormMethod.Post, new { Area = "_Public", id = "my-form", @ng_Controller = "HomeController" }))
+{
+        @ViewBag.Attempt
+        @Html.ValidationSummary(true);
+        @Html.AntiForgeryToken();
+        if (ViewBag.Message != null)
+        {
+        <div style="border: solid 1px green">
+            @ViewBag.Message
+        </div>
+        }
+    
+
+    @:Имя @Html.EditorFor(x => x.firsеName)
+    @Html.ValidationMessageFor(x => x.firsеName);
+    <br /><br />
+    
+    @:Фамилия @Html.EditorFor(x => x.lastName)
+    @Html.ValidationMessageFor(x => x.lastName);
+    <br /><br />
+    
+    @:Сатус @Html.EditorFor(x => x.status)
+    @Html.ValidationMessageFor(x => x.status);
+    <br /><br />
+    
+    @:Дата рождения @Html.EditorFor(x => x.dateBirth)
+    @Html.ValidationMessageFor(x => x.dateBirth);
+    <br /><br />
+    
+    @:Логин @Html.EditorFor(x => x.login, new { });
+    @: | <span>ПРОВЕРКА ЛОГИНА: {{todos2}}</span>
+    @Html.ValidationMessageFor(x => x.login);
+    <br /><br />
+    
+    @:E-mail @Html.TextBoxFor(x => x.email, new { });
+    @: | <span>ПРОВЕРКА ПОЧТЫ: {{todos3}}</span>
+    @Html.ValidationMessageFor(x => x.email);
+    <br /><br />
+    
+    @:Пароль @Html.EditorFor(x => x.pass)
+    @Html.ValidationMessageFor(x => x.pass);
+    <br /><br />
+    
+    @:Подтверждение пароля @Html.EditorFor(x => x.ConfirmPass)
+    @Html.ValidationMessageFor(x => x.ConfirmPass);
+    <br /><br />
+    
+    <img src="@Url.Action("GetCapthcaImage", "Home", new { Area = "_Public" })" /><br />
+    <input type="text" name="CaptchaText" id="CaptchaText" value="@ViewBag.CaptchaText" /> 
+    <!-- в action POST в параметр ...string CaptchaText) и ViewBag.CaptchaText получит введенное значение-->
+    <br /><br />
+   
+    <input type="submit" value="submit" id="subReg" ng-click="regValidJs()" />
+    
+     <div>
+        @if (ViewBag.Message2 != null)
+        {
+            <div style="border: 1px solid rgb(141, 27, 27); width:300px;padding: 5px;">
+                @ViewBag.Message2
+            </div>
+        }
+    </div>
+     
+}
+
+@Scripts.Render("~/bundles/jqueryval")

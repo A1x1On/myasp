@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>@ViewBag.Title</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="@Url.Content("~/Content/Site.css")" type="text/css" rel="stylesheet"/>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.8.2.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.js")" ></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular-route.js")" ></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/MyApp.js")" ></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/MyApp2.js")" ></script>
+
+
+</head>
+<body ng-app="MyApp">
+
+    <div class="panel-admin">ЗАРЕГИСТРИРОВАННЫЙ: </div>
+<header>
+    <div class="h-links"> 
+        <a href="@Url.Action("Index", "Home", new { Area = "_Public" }, null)">Главная</a> 
+        &nbsp; &nbsp; 
+        <a href="@Url.Action("Index", "Contact", new { Area = "_Public" }, null)">Контакты</a>
+        &nbsp; &nbsp; 
+        <a href="@Url.Action("Index", "Admin", new { Area = "_Private" }, null)">Администрирование для зарегистрированных</a>
+    </div>
+    <div class="h-login">
+       @Html.Partial("~/Areas/_Public/Views/Shared/_PartialLogIn.cshtml")
+    </div>
+</header>
+
+<section>
+    @RenderBody()
+</section>
+	
+	
+<footer>
+</footer>
+
+</body>
+</html>
+
+
+@if (Session["LogedUserID"] != null)
+{        
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".panel-admin").slideDown();
+        $(".panel-admin").html('Панель администрирования: Привет @Session["LogedUserName"]').insertAfter;
+    });
+</script>                 
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+     $("#my-form").on("submit", function (e) {
+     e.preventDefault();
+         $.ajax({
+              url: this.action,
+              type: this.method,
+              data: $(this).serialize(),
+              success: function (data){
+                  $("section").html(data);  
+              }
+        });
+     });
+
+     $("#btnLogOut").on("click", function (e) {
+         e.preventDefault();
+         $.ajax({
+             url: '@Url.Action("LogOut", "Home", new { Area = "_Public" })',
+             type: this.method,
+             data: $(this).serialize(),
+             success: function (data){
+                 $("section").html(data);
+             }
+         });
+
+     });
+});
+</script>

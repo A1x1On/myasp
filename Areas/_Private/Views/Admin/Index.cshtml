@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Администрировнаие";
+    Layout = "~/Areas/_Private/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Администрирование</h2>
+Добрый День @Session["LogedUserName"];<br />
+
+<a href="@Url.Action("EditProfile", "Admin", new { Area = "_Private" }, null)">Редактировать профиль</a><br /><br />
+<a href="@Url.Action("AddMk", "Admin", new { Area = "_Private" }, null)">Добавить мк</a><br /><br />
+<a href="@Url.Action("ListMk", "Admin", new { Area = "_Private" }, null)">Список мк</a><br /><br />
